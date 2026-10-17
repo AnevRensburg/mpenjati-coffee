@@ -32,7 +32,8 @@ export type IconName =
   | 'tiktok'
   | 'plus'
   | 'minus'
-  | 'award';
+  | 'award'
+  | 'bag';
 
 /** Line icons drawn with currentColor (24×24, 1.6px stroke). Decorative: hidden from screen readers. */
 @Component({
@@ -160,6 +161,10 @@ export type IconName =
         }
         @case ('minus') {
           <path d="M5 12h14" />
+        }
+        @case ('bag') {
+          <path d="M5 8h14l-1 12.5H6z" />
+          <path d="M9 10V7a3 3 0 0 1 6 0v3" />
         }
         @case ('award') {
           <circle cx="12" cy="9" r="5.5" />

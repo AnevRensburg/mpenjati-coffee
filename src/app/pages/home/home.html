@@ -5,10 +5,20 @@
 <header class="topbar">
   <div class="topbar__inner container">
     <a class="brand" href="./" [attr.aria-label]="site.name + ', home'">
-      @if (site.logo) {
-        <app-picture class="brand__logo" [src]="site.logo" alt="" sizes="160px" [priority]="true" />
+      @if (site.logo && wordmark) {
+        <app-picture class="brand__wordmark" [src]="site.logo" alt="" sizes="200px" [priority]="true" />
       } @else {
-        <span class="brand__name">{{ site.name }}</span>
+        <span class="brand__mark" [class.brand__mark--initials]="!site.logo" aria-hidden="true">
+          @if (site.logo) {
+            <app-picture [src]="site.logo" alt="" sizes="96px" [priority]="true" />
+          } @else {
+            {{ initials }}
+          }
+        </span>
+        <span class="brand__text">
+          <span class="brand__name">{{ site.name }}</span>
+          <span class="brand__tagline">{{ site.tagline }}</span>
+        </span>
       }
     </a>
 
@@ -29,11 +39,13 @@
     </nav>
 
     <div class="topbar__actions">
-      <a class="basket" routerLink="/" fragment="order" queryParamsHandling="preserve">
-        <span class="visually-hidden">Your order:</span>
-        <app-icon name="gift" />
-        <span class="basket__count" aria-live="polite">{{ cart.count() }}</span>
-        <span class="visually-hidden">items</span>
+      <a class="order-pill" routerLink="/" fragment="order" queryParamsHandling="preserve">
+        <app-icon name="bag" />
+        <span class="order-pill__label">Your order</span>
+        @if (cart.count()) {
+          <span class="order-pill__count" aria-live="polite">{{ cart.count() }}</span>
+          <span class="visually-hidden">items</span>
+        }
       </a>
       <button
         type="button"
@@ -106,9 +118,44 @@
         <h2 id="products-title" class="section-title">{{ site.products.title }}</h2>
         <p class="section-lead">{{ site.products.lead }}</p>
       </div>
-      <div class="products">
-        @for (p of site.products.items; track p.id) {
+      @if (bigCatalogue) {
+        <div class="catalogue-tools">
+          <label class="search">
+            <app-icon name="search" />
+            <span class="visually-hidden">Search products</span>
+            <input
+              type="search"
+              placeholder="Search {{ site.products.items.length }} products"
+              [value]="query()"
+              (input)="query.set($any($event.target).value)"
+            />
+          </label>
+          @if (categories.length > 1) {
+            <div class="filters" role="group" aria-label="Filter by category">
+              <button type="button" [attr.aria-pressed]="!category()" (click)="category.set(null)">
+                All
+              </button>
+              @for (c of categories; track c) {
+                <button
+                  type="button"
+                  [attr.aria-pressed]="category() === c"
+                  (click)="category.set(category() === c ? null : c)"
+                >
+                  {{ c }}
+                </button>
+              }
+            </div>
+          }
+        </div>
+        <p class="result-count" aria-live="polite">
+          Showing {{ visibleProducts().length }} of {{ site.products.items.length }}
+        </p>
+      }
+      <div class="products" [class.products--compact]="bigCatalogue">
+        @for (p of visibleProducts(); track p.id) {
           <app-product-card [product]="p" />
+        } @empty {
+          <p class="no-results">No products match “{{ query() }}”. Try another word, or ask us in the order form.</p>
         }
       </div>
     </div>

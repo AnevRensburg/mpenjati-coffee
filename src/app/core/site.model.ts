@@ -14,6 +14,8 @@ export interface Product {
   readonly image: string;
   readonly imageAlt: string;
   readonly badge?: string;
+  /** Group for the category filter (shown when a business has many products). */
+  readonly category?: string;
   /** Show prices as "From R…" (the business has more sizes than listed; the size is confirmed later). */
   readonly fromPrice?: boolean;
   /** Multi-buy special across all options of the product, e.g. any 2 for R220. */
@@ -36,6 +38,8 @@ export interface SiteConfig {
   readonly tagline: string;
   /** Image key for a logo, or null to show the name as text. */
   readonly logo: string | null;
+  /** 'mark' (default): square/round logo in a tile beside the name. 'wordmark': a wide logo shown alone. */
+  readonly logoStyle?: 'mark' | 'wordmark';
   readonly meta: { readonly title: string; readonly description: string };
   readonly hero: {
     readonly eyebrow: string;

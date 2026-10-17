@@ -20,7 +20,11 @@ import { Picture } from '../picture/picture';
       </div>
       <div class="card__body">
         <h3 class="card__name">{{ p.name }}</h3>
-        <p class="card__text">{{ p.description }}</p>
+        @if (p.description) {
+          <p class="card__text">{{ p.description }}</p>
+        } @else {
+          <span class="card__text" aria-hidden="true"></span>
+        }
 
         @if (p.options.length > 1) {
           <div class="card__options" role="group" [attr.aria-label]="p.name + ' size'">
