@@ -1,0 +1,36 @@
+/* Generated from sites/mpenjati-coffee/site.json. */
+:root {
+  --bg: #faf7f2;
+  --bg-alt: #f1ebe1;
+  --surface: #ffffff;
+  --ink: #15202f;
+  --muted: #5d6470;
+  --line: #e5ddd0;
+  --accent: #e8862e;
+  --accent-strong: #b3600f;
+  --accent-ink: #15202f;
+  --accent-soft: #fbe6d3;
+  --accent-on-dark: #f3a35a;
+  --dark: #13233a;
+  --dark-ink: #ffffff;
+  --error: #b42318;
+  --font-display: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --display-weight: 700;
+  --display-tracking: -0.025em;
+  --radius: 14px;
+  --button-radius: 999px;
+  --hero-position: center 60%;
+  --logo-ratio: 1.07;
+  --product-position: center top;
+  --topbar-bg: #13233a;
+  --topbar-ink: #ffffff;
+  --topbar-line: rgb(255 255 255 / 0.16);
+  --product-fit: contain;
+  --product-bg: #efe9df;
+  --logo-bg: transparent;
+  --logo-pad: 0;
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --max-width: 1200px;
+  color-scheme: light;
+}
